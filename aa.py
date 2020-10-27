@@ -1,13 +1,11 @@
 # 导入urlopen
 from urllib.request import urlopen
 # 导入BeautifulSoup
-from bs4 import BeautifulSoup as bf
 import ssl
-import re
 import pymysql
 import requests
 from bs4 import BeautifulSoup
-import lxml
+# import lxml
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -37,7 +35,8 @@ class SearchWeather():
         html.encoding='utf-8'
         soup=BeautifulSoup(html.text,'lxml')
         weather = "日期      天气    【温度】    风向风力\n"
-        for item in soup.find("div", {'id': '7d'}).find('ul').find_all('li'):
+        x = soup.find("div", {'id': '7d'}).find('ul').find_all('li')
+        for item in x:
             date,detail = item.find('h1').string, item.find_all('p')
             title = detail[0].string
             templow = detail[1].find("i").string
@@ -55,11 +54,7 @@ class SearchWeather():
         print (detail)
 
 if __name__ == "__main__":
-    print("hello1")
     weather = SearchWeather()
-    print("hello2")
     weather.main(city=input('请输入城市名称：'))
-    print("hello3")
-
 
 
