@@ -28,3 +28,13 @@ question = "生命、宇宙以及世间万物的终极答案是什么?"
 print(question)
 print(chatbot.get_response(question))
 print("###########################################")
+print("开始输入")
+
+while True:
+    try:
+        user_input=input()
+        bot_response=chatbot.get_response(user_input)
+        print(bot_response)
+        # Press ctrl-c or ctrl-d on the keyboard to exit
+    except (KeyboardInterrupt, EOFError, SystemExit):
+        break
