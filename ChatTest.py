@@ -1,16 +1,33 @@
 from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer
-my_bot = ChatBot("Training demo")
-my_bot.set_trainer(ListTrainer)
-my_bot.train([
-    "你叫什么名字？",
-    "我叫ChatterBot。",
-    "今天天气真好",
-    "是啊，这种天气出去玩再好不过了。",
-    "那你有没有想去玩的地方？",
-    "我想去有山有水的地方。你呢？",
-    "没钱哪都不去",
-    "哈哈，这就比较尴尬了",
-])
+
+
+# Uncomment the following lines to enable verbose logging
+import logging
+logging.basicConfig(level=logging.INFO)
+
+# Create a new instance of a ChatBot
+bot = ChatBot(
+    'Terminal',
+    storage_adapter='chatterbot.storage.SQLStorageAdapter',
+    logic_adapters=[
+        'chatterbot.logic.MathematicalEvaluation',
+        'chatterbot.logic.TimeLogicAdapter',
+        'chatterbot.logic.BestMatch'
+    ],
+    database_uri='sqlite:///database.db'
+)
+
+print('Type something to begin...')
+
+# The following loop will execute each time the user enters input
 while True:
-    print(my_bot.get_response(input("user:")))
+    try:
+        user_input = input()
+
+        bot_response = bot.get_response(user_input)
+
+        print(bot_response)
+
+    # Press ctrl-c or ctrl-d on the keyboard to exit
+    except (KeyboardInterrupt, EOFError, SystemExit):
+        break
