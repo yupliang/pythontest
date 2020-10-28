@@ -1,4 +1,8 @@
 import numpy;
+import random;
+
+while 1:
+    print(random.choice('阿花 中午吃什么'), end='')
 
 print('使用列表生成一维数组')
 data = [1, 2, 3, 4, 5, 6]
